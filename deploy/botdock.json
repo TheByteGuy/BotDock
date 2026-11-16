@@ -1,0 +1,113 @@
+{
+  "version": 6,
+  "custom": true,
+  "metadata": {
+    "name": "BotDock",
+    "description": "Host your Python bots in one place. Upload a file or a folder, keep each bot's secrets, start and stop them, and watch their logs from a web page.",
+    "icon": "botdock/icon.svg",
+    "version": "0.1.0",
+    "categories": [
+      "productivity"
+    ],
+    "keywords": [
+      "discord",
+      "bot",
+      "python",
+      "hosting"
+    ],
+    "screenshots": []
+  },
+  "script": {
+    "version": "1.0.0",
+    "changeLog": "Install BotDock 0.1.0 from an image loaded on this server."
+  },
+  "requirements": {
+    "locations": [
+      "ApplicationsPerformance"
+    ],
+    "specifications": [
+      "2CORE",
+      "2GB",
+      "1GBRAM"
+    ],
+    "permissions": [
+      "READ_WRITE_LOCATIONS"
+    ],
+    "ports": [
+      30480
+    ]
+  },
+  "installation_questions": [
+    {
+      "question": "Admin password",
+      "description": "You type this to open BotDock in your browser. At least 8 characters. You can change it later inside BotDock.",
+      "type": "password",
+      "key": "password",
+      "required": true,
+      "default": "$RANDOM_STRING(16)"
+    }
+  ],
+  "ensure_directories_exists": [
+    {
+      "path": "$LOCATION(ApplicationsPerformance)"
+    },
+    {
+      "path": "$LOCATION(ApplicationsPerformance)/botdock/data",
+      "owner": {
+        "user": "apps"
+      },
+      "snapshot": {
+        "id": "data"
+      }
+    }
+  ],
+  "app_values": {
+    "image": {
+      "repository": "botdock",
+      "tag": "0.1.0",
+      "pull_policy": "never"
+    },
+    "restart_policy": "unless-stopped",
+    "envs": [
+      {
+        "name": "BOTDOCK_PASSWORD",
+        "value": "$QUESTION(password)"
+      }
+    ],
+    "ports": [
+      {
+        "bind_mode": "published",
+        "port_number": "$PORT(30480)",
+        "container_port": 8080,
+        "protocol": "tcp",
+        "host_ips": []
+      }
+    ],
+    "portals": [
+      {
+        "name": "Web UI",
+        "scheme": "http",
+        "use_node_ip": true,
+        "host": "",
+        "port": "$PORT(30480)",
+        "path": "/"
+      }
+    ],
+    "storage": [
+      {
+        "type": "host_path",
+        "mount_path": "/data",
+        "host_path_config": {
+          "path": "$LOCATION(ApplicationsPerformance)/botdock/data"
+        }
+      }
+    ],
+    "resources": {
+      "enable_resource_limits": true,
+      "limits": {
+        "cpus": "$CPUS(50%, 2)",
+        "memory": "$MEMORY(15%, 2048)"
+      }
+    }
+  }
+}

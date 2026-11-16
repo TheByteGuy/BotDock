@@ -1,0 +1,6 @@
+*
+!botdock
+!requirements.txt
+!deploy/entrypoint.sh
+**/__pycache__
+**/*.py[cod]
