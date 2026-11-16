@@ -1,11 +1,28 @@
 # Installing BotDock on HexOS
 
-No registry or public repo is needed: the NAS builds the image from a copy of the project.
-
 Everything BotDock keeps (bots, their virtualenvs, logs, encrypted secrets and the key that
 decrypts them) lives in one `data` folder. Back that folder up and you have everything.
 
-## Option A — Install via YAML (no shell needed)
+## Easiest — HexOS Custom Install (about 2 minutes)
+
+The image is built by GitHub and published as `ghcr.io/thebyteguy/botdock`, so the NAS just
+downloads it. Nothing to build, no shell.
+
+1. In HexOS, turn on **Expert Mode** (in your preferences).
+2. Go to **Apps** and choose **Custom Install**. A JSON editor opens.
+3. Replace its contents with [`botdock.json`](botdock.json) (open it on GitHub, click **Raw**,
+   copy everything).
+4. Install. HexOS asks for an **Admin password** (a random one is filled in; change it to one you
+   will remember, 8+ characters).
+5. When it shows **Running**, click **Launch** and sign in with that password.
+
+It stores everything under Applications Performance → `botdock/data` and publishes port 30480
+(HexOS moves it if that port is taken; Launch follows it).
+
+**Updating:** when a new version is tagged, raise `tag` (and `script.version`) in the script to
+match and run Custom Install again with it. Your bots and secrets in `data` are kept.
+
+## Option A — Install via YAML, building on the NAS (no registry needed)
 
 1. On your PC run `powershell -ExecutionPolicy Bypass -File deploy/make-bundle.ps1`. It writes `dist/botdock-app.zip`.
 2. On a NAS share, make `apps/botdock/app` and `apps/botdock/data`. Unzip the bundle into `app`
@@ -20,17 +37,16 @@ decrypts them) lives in one `data` folder. Back that folder up and you have ever
 **Updating BotDock:** unzip a new bundle over `app`, then restart the app. It rebuilds on start.
 Your bots and secrets are in `data` and are not touched.
 
-## Option B — HexOS install script (shows up as a normal HexOS app)
+## Option B — HexOS install script with an image you built yourself
 
-The script (`deploy/botdock.json`) expects an image named `botdock:0.1.0` to already be on the
-server, so build it there once:
+For a changed copy of BotDock that isn't on GitHub's registry:
 
 1. Copy the bundle to the NAS as in Option A, steps 1–3.
 2. TrueNAS UI → System → Shell:
    `sudo docker build -t botdock:0.1.0 /mnt/<pool>/<share>/apps/botdock/app`
-3. In HexOS, load `deploy/botdock.json` as a custom install script and install it. It asks for the
-   admin password, stores data under Applications Performance → `botdock/data`, and publishes
-   port 30480.
+3. In `botdock.json`, set `app_values.image` to
+   `{ "repository": "botdock", "tag": "0.1.0", "pull_policy": "never" }`, then install it with
+   Custom Install as above.
 
 **Updating:** rebuild with the same command, then stop and start the app.
 

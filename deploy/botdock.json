@@ -19,7 +19,7 @@
   },
   "script": {
     "version": "1.0.0",
-    "changeLog": "Install BotDock 0.1.0 from an image loaded on this server."
+    "changeLog": "Install BotDock 0.1.0 from GitHub Container Registry."
   },
   "requirements": {
     "locations": [
@@ -63,9 +63,9 @@
   ],
   "app_values": {
     "image": {
-      "repository": "botdock",
+      "repository": "ghcr.io/thebyteguy/botdock",
       "tag": "0.1.0",
-      "pull_policy": "never"
+      "pull_policy": "missing"
     },
     "restart_policy": "unless-stopped",
     "envs": [

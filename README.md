@@ -30,7 +30,9 @@ pip install -r requirements.txt
 python -m botdock
 ```
 
-On HexOS or TrueNAS, see [deploy/HEXOS.md](deploy/HEXOS.md).
+A prebuilt image is published as `ghcr.io/thebyteguy/botdock` (tags `0.1.0`, `latest`; `edge` follows `main`), so you can skip the build and run that instead.
+
+On HexOS or TrueNAS, see [deploy/HEXOS.md](deploy/HEXOS.md): Custom Install with [deploy/botdock.json](deploy/botdock.json) is a copy-and-paste.
 
 ## First sign-in
 
@@ -57,3 +59,7 @@ pytest
 ```
 
 `dev/mock_server.py` serves the web UI with fake bots and a fake GitHub, for working on the frontend. [SPEC.md](SPEC.md) describes the API and how the backend and frontend fit together.
+
+## License
+
+[GPL-3.0](LICENSE). You can use, change and share BotDock; copies you share, changed or not, must stay under the GPL with their source available.
