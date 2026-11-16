@@ -13,7 +13,7 @@ downloads it. Nothing to build, no shell.
 3. Replace its contents with [`botdock.json`](botdock.json) (open it on GitHub, click **Raw**,
    copy everything).
 4. Install. HexOS asks for an **Admin password** (a random one is filled in; change it to one you
-   will remember, 8+ characters).
+   will remember, 4+ characters).
 5. When it shows **Running**, click **Launch** and sign in with that password.
 
 It stores everything under Applications Performance → `botdock/data` and publishes port 30480
@@ -34,7 +34,7 @@ image on the NAS instead, with [`truenas-compose-build.yaml`](truenas-compose-bu
    `/mnt/<pool>/<share>/apps/botdock`.
 4. TrueNAS UI → Apps → Discover Apps → ⋮ → **Install via YAML**. Name it `botdock`, paste
    `deploy/truenas-compose-build.yaml`, and replace the two `/mnt/POOL/apps/botdock` paths and the
-   timezone. Optionally uncomment `BOTDOCK_PASSWORD` and set a password of 8+ characters.
+   timezone. Optionally uncomment `BOTDOCK_PASSWORD` and set a password of 4+ characters.
 5. Save. The first start builds the image (a few minutes). Then open `http://<nas-ip>:30480`.
 
 **Updating BotDock:** unzip a new bundle over `app`, then restart the app. It rebuilds on start.
@@ -46,9 +46,9 @@ For a changed copy of BotDock that isn't on GitHub's registry:
 
 1. Copy the bundle to the NAS as in Option A, steps 1–3.
 2. TrueNAS UI → System → Shell:
-   `sudo docker build -t botdock:0.1.0 /mnt/<pool>/<share>/apps/botdock/app`
+   `sudo docker build -t botdock:0.1.1 /mnt/<pool>/<share>/apps/botdock/app`
 3. In `botdock.json`, set `app_values.image` to
-   `{ "repository": "botdock", "tag": "0.1.0", "pull_policy": "never" }`, then install it with
+   `{ "repository": "botdock", "tag": "0.1.1", "pull_policy": "never" }`, then install it with
    Custom Install as above.
 
 **Updating:** rebuild with the same command, then stop and start the app.

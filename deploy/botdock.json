@@ -5,7 +5,7 @@
     "name": "BotDock",
     "description": "Host your Python bots in one place. Upload a file or a folder, keep each bot's secrets, start and stop them, and watch their logs from a web page.",
     "icon": "botdock/icon.svg",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "categories": [
       "productivity"
     ],
@@ -18,8 +18,8 @@
     "screenshots": []
   },
   "script": {
-    "version": "1.0.0",
-    "changeLog": "Install BotDock 0.1.0 from GitHub Container Registry."
+    "version": "1.0.1",
+    "changeLog": "BotDock 0.1.1: passwords need 4 characters instead of 8."
   },
   "requirements": {
     "locations": [
@@ -40,7 +40,7 @@
   "installation_questions": [
     {
       "question": "Admin password",
-      "description": "You type this to open BotDock in your browser. At least 8 characters. You can change it later inside BotDock.",
+      "description": "You type this to open BotDock in your browser. At least 4 characters. You can change it later inside BotDock.",
       "type": "password",
       "key": "password",
       "required": true,
@@ -64,7 +64,7 @@
   "app_values": {
     "image": {
       "repository": "ghcr.io/thebyteguy/botdock",
-      "tag": "0.1.0",
+      "tag": "0.1.1",
       "pull_policy": "missing"
     },
     "restart_policy": "unless-stopped",

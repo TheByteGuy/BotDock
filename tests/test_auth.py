@@ -5,7 +5,7 @@ from conftest import setup_body, PASSWORD
 
 def test_health_and_state_public(client):
     r = client.get("/api/health")
-    assert r.json() == {"status": "ok", "version": "0.1.0"}
+    assert r.json() == {"status": "ok", "version": "0.1.1"}
     assert client.get("/api/auth/state").json() == {"setup_required": True, "authenticated": False,
                                                     "setup_code_required": True}
 
@@ -19,8 +19,8 @@ def test_protected_routes_need_session(client):
 
 
 def test_setup_login_logout_flow(client):
-    r = client.post("/api/auth/setup", json=setup_body(client, "short"))
-    assert r.status_code == 400 and "8" in r.json()["detail"]
+    r = client.post("/api/auth/setup", json=setup_body(client, "abc"))
+    assert r.status_code == 400 and "4" in r.json()["detail"]
     r = client.post("/api/auth/setup", json=setup_body(client, PASSWORD))
     assert r.status_code == 200 and r.json() == {"ok": True}
     cookie = r.headers["set-cookie"]

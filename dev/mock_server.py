@@ -664,7 +664,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def api(self, m, path, qs):
         if path == "/api/health":
-            return self.json_out({"status": "ok", "version": "0.1.0"})
+            return self.json_out({"status": "ok", "version": "0.1.1"})
         if path == "/api/auth/state":
             out = {"setup_required": STATE["password"] is None, "authenticated": self.session() is not None}
             if STATE["password"] is None and STATE["setup_code"]:
@@ -678,7 +678,7 @@ class Handler(BaseHTTPRequestHandler):
             if STATE["setup_code"] and (body.get("setup_code") or "").strip().upper() != STATE["setup_code"]:
                 raise ApiErr(403, "Wrong setup code")
             if len(pw) < 8:
-                raise ApiErr(400, "Password must be at least 8 characters")
+                raise ApiErr(400, "Password must be at least 4 characters")
             STATE["password"] = pw
             return self.json_out({"ok": True}, extra=self.new_session())
         if path == "/api/auth/login" and m == "POST":
@@ -705,14 +705,14 @@ class Handler(BaseHTTPRequestHandler):
             if b.get("current_password") != STATE["password"]:
                 raise ApiErr(400, "Current password is wrong")
             if len(b.get("new_password") or "") < 8:
-                raise ApiErr(400, "New password must be at least 8 characters")
+                raise ApiErr(400, "New password must be at least 4 characters")
             STATE["password"] = b["new_password"]
             STATE["sessions"] = {sess}
             return self.json_out({"ok": True})
         if path == "/api/system":
             with LOCK:
                 return self.json_out({
-                    "version": "0.1.0", "python_version": "3.12.7", "platform": "Linux-6.6.44-x86_64 (mock)",
+                    "version": "0.1.1", "python_version": "3.12.7", "platform": "Linux-6.6.44-x86_64 (mock)",
                     "data_dir": "/data", "bot_count": len(BOTS),
                     "running_count": sum(b.state == "running" for b in BOTS.values()),
                     "uptime_seconds": int(time.time() - STARTED + 86400 * 3),

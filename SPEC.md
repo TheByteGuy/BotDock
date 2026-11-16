@@ -140,7 +140,7 @@ of the BotDock process. pip output is logged as `system`.
 |---|---|---|---|
 | GET | `/api/health` | | `{"status":"ok","version":"0.1.0"}` |
 | GET | `/api/auth/state` | | `{"setup_required": bool, "authenticated": bool}` |
-| POST | `/api/auth/setup` | `{"password"}` (min 8 chars) | 200 `{"ok":true}` + session cookie; 409 if already set up |
+| POST | `/api/auth/setup` | `{"password"}` (min 4 chars) | 200 `{"ok":true}` + session cookie; 409 if already set up |
 | POST | `/api/auth/login` | `{"password"}` | 200 `{"ok":true}` + cookie; 401 bad password; 429 limited |
 | POST | `/api/auth/logout` | | `{"ok":true}`, clears cookie |
 | POST | `/api/auth/password` | `{"current_password","new_password"}` | `{"ok":true}`; all other sessions are revoked; wrong current password → **400** (not 401, so the UI doesn't bounce to login) |
@@ -506,7 +506,7 @@ never crash the poller. Backs off when rate-limited (honours `X-RateLimit-Reset`
 - `POST /api/auth/setup` body `{"password", "setup_code"}`. Case, spaces and dashes in the code are ignored.
   A wrong or missing code → 403. Attempts are rate-limited like login (5 failures / 5 min per IP → 429). On success
   the file is deleted.
-- Seed passwords (`BOTDOCK_PASSWORD_FILE` / `BOTDOCK_PASSWORD`) shorter than 8 characters or on a small denylist
+- Seed passwords (`BOTDOCK_PASSWORD_FILE` / `BOTDOCK_PASSWORD`) shorter than 4 characters or on a small denylist
   (`changeme`, `change-me-please`, `password`, `password123`, `admin`, `botdock`, …) are refused with a warning in
   the log, and the setup-code flow is used instead.
 

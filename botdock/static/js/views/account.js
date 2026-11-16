@@ -10,7 +10,7 @@ export function mount(root, params = {}) {
   const sys = h("div", null, spinnerBlock("Loading…"));
 
   const cur = h("input", { class: "input", type: "password", id: "a-cur", autocomplete: "current-password", required: true });
-  const pw = h("input", { class: "input", type: "password", id: "a-new", autocomplete: "new-password", required: true, minlength: "8" });
+  const pw = h("input", { class: "input", type: "password", id: "a-new", autocomplete: "new-password", required: true, minlength: "4" });
   const pw2 = h("input", { class: "input", type: "password", id: "a-new2", autocomplete: "new-password", required: true });
   const user = h("input", { type: "text", name: "username", value: "admin", autocomplete: "username", class: "sr-only", tabIndex: -1, "aria-hidden": "true", readOnly: true });
   const err = h("div", { class: "form-error", role: "alert", hidden: true });
@@ -21,7 +21,7 @@ export function mount(root, params = {}) {
     e.preventDefault();
     showErr("");
     if (!cur.value) { showErr("Enter your current password."); cur.focus(); return; }
-    if (pw.value.length < 8) { showErr("The new password needs at least 8 characters."); pw.focus(); return; }
+    if (pw.value.length < 4) { showErr("The new password needs at least 4 characters."); pw.focus(); return; }
     if (pw.value !== pw2.value) { showErr("The new passwords don't match."); pw2.focus(); return; }
     busy(saveBtn, async () => {
       try {
@@ -37,7 +37,7 @@ export function mount(root, params = {}) {
   user,
   h("label", { class: "field", for: "a-cur" }, h("span", { class: "field-label" }, "Current password"), cur),
   h("div", { class: "form-grid" },
-    h("label", { class: "field", for: "a-new" }, h("span", { class: "field-label" }, "New password"), pw, h("span", { class: "field-hint" }, "At least 8 characters.")),
+    h("label", { class: "field", for: "a-new" }, h("span", { class: "field-label" }, "New password"), pw, h("span", { class: "field-hint" }, "At least 4 characters.")),
     h("label", { class: "field", for: "a-new2" }, h("span", { class: "field-label" }, "Confirm new password"), pw2)),
   err,
   h("p", { class: "field-hint" }, "Changing the password signs out every other session."),

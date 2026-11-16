@@ -19,7 +19,7 @@ WEAK_PASSWORDS = {
     "passw0rd", "12345678", "123456789", "1234567890", "admin", "administrator", "botdock", "letmein",
     "qwerty123", "secret", "default",
 }
-MIN_PASSWORD_LEN = 8
+MIN_PASSWORD_LEN = 4
 SETUP_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
 PUBLIC_BODY_CAP = 64 * 1024  # login/setup: unauthenticated, so keep tiny
 JSON_BODY_CAP = 16 * 1024 * 1024

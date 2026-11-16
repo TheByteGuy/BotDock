@@ -13,7 +13,7 @@ export function renderAuth(root, mode, onDone, theme, { codeRequired = false } =
   const showErr = (m) => { err.hidden = !m; err.textContent = m || ""; };
 
   const pw = h("input", { class: "input", type: "password", id: "pw", name: "password", required: true, autofocus: !needCode,
-    autocomplete: setup ? "new-password" : "current-password", minlength: setup ? "8" : null });
+    autocomplete: setup ? "new-password" : "current-password", minlength: setup ? "4" : null });
   const pw2 = setup ? h("input", { class: "input", type: "password", id: "pw2", name: "confirm", required: true, autocomplete: "new-password" }) : null;
   // a hidden username lets password managers file the credential under something sensible
   const user = h("input", { type: "text", name: "username", value: "admin", autocomplete: "username", class: "sr-only", tabIndex: -1, "aria-hidden": "true", readOnly: true });
@@ -24,7 +24,7 @@ export function renderAuth(root, mode, onDone, theme, { codeRequired = false } =
     showErr("");
     if (needCode && !code.value.trim()) { showErr("Enter the setup code from BotDock's log."); code.focus(); return; }
     if (setup) {
-      if (pw.value.length < 8) { showErr("Use at least 8 characters."); pw.focus(); return; }
+      if (pw.value.length < 4) { showErr("Use at least 4 characters."); pw.focus(); return; }
       if (pw.value !== pw2.value) { showErr("The passwords don't match."); pw2.focus(); return; }
     } else if (!pw.value) { showErr("Enter your password."); pw.focus(); return; }
     busy(submit, async () => {
@@ -53,7 +53,7 @@ export function renderAuth(root, mode, onDone, theme, { codeRequired = false } =
     h("span", { class: "field-hint" }, "Proves you're the owner of this server. BotDock prints it in its log when it starts — on HexOS / TrueNAS open ",
       h("strong", null, "Apps → BotDock → Logs"), ". It's also in ", h("code", null, "setup-code.txt"), " in BotDock's data folder.")) : null,
   h("label", { class: "field", for: "pw" }, h("span", { class: "field-label" }, setup ? "Admin password" : "Password"), pw,
-    setup ? h("span", { class: "field-hint" }, "At least 8 characters. This is the only account.") : null),
+    setup ? h("span", { class: "field-hint" }, "At least 4 characters. This is the only account.") : null),
   pw2 ? h("label", { class: "field", for: "pw2" }, h("span", { class: "field-label" }, "Confirm password"), pw2) : null,
   err, submit);
 

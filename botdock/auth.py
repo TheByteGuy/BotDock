@@ -15,7 +15,7 @@ from .db import Database
 COOKIE_NAME = "botdock_session"
 CSRF_HEADER = "x-botdock"
 PASSWORD_KEY = "admin_password"
-MIN_PASSWORD_LEN = 8
+MIN_PASSWORD_LEN = 4
 MAX_PASSWORD_LEN = 1024
 
 _SCRYPT_N, _SCRYPT_R, _SCRYPT_P = 2**14, 8, 1

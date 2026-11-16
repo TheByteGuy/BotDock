@@ -183,7 +183,7 @@ def test_setup_code_flow(client, data_dir):
     assert st == {"setup_required": False, "authenticated": True, "setup_code_required": False}
 
 
-@pytest.mark.parametrize("weak", ["changeme", "change-me-please", "password", "Password", "short"])
+@pytest.mark.parametrize("weak", ["changeme", "change-me-please", "password", "Password", "abc"])
 def test_weak_seed_password_refused(make_client, data_dir, weak, caplog):
     c = make_client(password=weak)
     st = c.get("/api/auth/state").json()
