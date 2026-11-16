@@ -1,0 +1,28 @@
+# TrueNAS / HexOS: Apps -> Discover Apps -> ... -> Install via YAML.
+# This version BUILDS the image on the NAS from a copy of the project. Most people want
+# truenas-compose.yaml instead, which pulls the prebuilt image.
+# Replace /mnt/POOL/apps/botdock with the folder you copied this project into (see deploy/HEXOS.md).
+# The NAS builds the image itself from that folder; no registry needed.
+services:
+  botdock:
+    container_name: botdock
+    image: botdock:local
+    build:
+      context: /mnt/POOL/apps/botdock/app
+    pull_policy: build
+    restart: unless-stopped
+    ports:
+      - "30480:8080"
+    environment:
+      TZ: America/New_York
+      # Optional first-run admin password (8+ characters): uncomment and set. Only used once.
+      # Without it, BotDock prints a one-time setup code in its log (Apps -> botdock -> Logs).
+      # BOTDOCK_PASSWORD: "your-password-here"
+    volumes:
+      - /mnt/POOL/apps/botdock/data:/data
+    stop_grace_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"

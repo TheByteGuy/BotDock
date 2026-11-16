@@ -1,23 +1,23 @@
-# TrueNAS / HexOS: Apps -> Discover Apps -> ... -> Install via YAML.
-# Replace /mnt/POOL/apps/botdock with the folder you copied this project into (see deploy/HEXOS.md).
-# The NAS builds the image itself from that folder; no registry needed.
+# BotDock for TrueNAS SCALE / HexOS: Apps -> Discover Apps -> ⋮ -> Install via YAML.
+# Pulls the prebuilt image from GitHub. Nothing to build, no shell.
+#
+# Before pasting, change the three marked lines:
+#   1. the path to your BotDock dataset (see deploy/TRUENAS.md)
+#   2. your timezone
+#   3. the admin password (8+ characters), or delete that line to get a setup code in the log.
+#      A weak or placeholder password (like the one below) is refused and you get the setup code.
 services:
   botdock:
-    container_name: botdock
-    image: botdock:local
-    build:
-      context: /mnt/POOL/apps/botdock/app
-    pull_policy: build
+    image: ghcr.io/thebyteguy/botdock:0.1.0
+    pull_policy: missing
     restart: unless-stopped
     ports:
-      - "30480:8080"
+      - "30480:8080"          # open BotDock at http://<nas-ip>:30480
     environment:
-      TZ: America/New_York
-      # Optional first-run admin password (8+ characters): uncomment and set. Only used once.
-      # Without it, BotDock prints a one-time setup code in its log (Apps -> botdock -> Logs).
-      # BOTDOCK_PASSWORD: "your-password-here"
+      TZ: America/New_York                 # <- 2. your timezone
+      BOTDOCK_PASSWORD: "change-me-please" # <- 3. first-run admin password, only used once
     volumes:
-      - /mnt/POOL/apps/botdock/data:/data
+      - /mnt/POOL/apps/botdock:/data       # <- 1. your dataset path : /data
     stop_grace_period: 30s
     logging:
       driver: json-file

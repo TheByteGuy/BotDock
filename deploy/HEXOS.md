@@ -22,7 +22,10 @@ It stores everything under Applications Performance → `botdock/data` and publi
 **Updating:** when a new version is tagged, raise `tag` (and `script.version`) in the script to
 match and run Custom Install again with it. Your bots and secrets in `data` are kept.
 
-## Option A — Install via YAML, building on the NAS (no registry needed)
+## Option A — Install via YAML (TrueNAS UI)
+
+To install with the prebuilt image, follow [TRUENAS.md](TRUENAS.md). The steps below build the
+image on the NAS instead, with [`truenas-compose-build.yaml`](truenas-compose-build.yaml).
 
 1. On your PC run `powershell -ExecutionPolicy Bypass -File deploy/make-bundle.ps1`. It writes `dist/botdock-app.zip`.
 2. On a NAS share, make `apps/botdock/app` and `apps/botdock/data`. Unzip the bundle into `app`
@@ -30,7 +33,7 @@ match and run Custom Install again with it. Your bots and secrets in `data` are 
 3. Find the folder's real path on the NAS: TrueNAS UI → Datasets. It looks like
    `/mnt/<pool>/<share>/apps/botdock`.
 4. TrueNAS UI → Apps → Discover Apps → ⋮ → **Install via YAML**. Name it `botdock`, paste
-   `deploy/truenas-compose.yaml`, and replace the two `/mnt/POOL/apps/botdock` paths and the
+   `deploy/truenas-compose-build.yaml`, and replace the two `/mnt/POOL/apps/botdock` paths and the
    timezone. Optionally uncomment `BOTDOCK_PASSWORD` and set a password of 8+ characters.
 5. Save. The first start builds the image (a few minutes). Then open `http://<nas-ip>:30480`.
 

@@ -32,7 +32,8 @@ python -m botdock
 
 A prebuilt image is published as `ghcr.io/thebyteguy/botdock` (tags `0.1.0`, `latest`; `edge` follows `main`), so you can skip the build and run that instead.
 
-On HexOS or TrueNAS, see [deploy/HEXOS.md](deploy/HEXOS.md): Custom Install with [deploy/botdock.json](deploy/botdock.json) is a copy-and-paste.
+- **HexOS:** see [deploy/HEXOS.md](deploy/HEXOS.md). Custom Install with [deploy/botdock.json](deploy/botdock.json) is a copy-and-paste.
+- **TrueNAS SCALE:** see [deploy/TRUENAS.md](deploy/TRUENAS.md). Make a dataset, then paste [deploy/truenas-compose.yaml](deploy/truenas-compose.yaml) into Install via YAML.
 
 ## First sign-in
 
