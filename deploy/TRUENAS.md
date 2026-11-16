@@ -60,7 +60,7 @@ There's no password reset, so keep it in a password manager.
 ## Updating BotDock
 
 When a new version comes out, **Apps → botdock → Edit**, change the tag in
-`ghcr.io/thebyteguy/botdock:0.1.1` to the new version, and **Save**. Your bots and secrets stay in
+`ghcr.io/thebyteguy/botdock:0.1.2` to the new version, and **Save**. Your bots and secrets stay in
 the dataset.
 
 ## If something goes wrong
@@ -69,7 +69,7 @@ the dataset.
 |---|---|
 | App stuck **Deploying**, log says `permission denied` on `/data` | The dataset path is wrong or doesn't exist. Check it in **Datasets** and edit the YAML |
 | Install fails with `port is already allocated` | Something else uses 30480. Change `"30480:8080"` to e.g. `"30481:8080"` and open that port instead |
-| Image download fails (`denied` or `not found`) | Check the image line is exactly `ghcr.io/thebyteguy/botdock:0.1.1` |
+| Image download fails (`denied` or `not found`) | Check the image line is exactly `ghcr.io/thebyteguy/botdock:0.1.2` |
 | Page won't load by a domain name or reverse proxy | Add `BOTDOCK_ALLOWED_HOSTS: "your.domain"` under `environment` |
 | Log says the password was refused and asks for a setup code | The `BOTDOCK_PASSWORD` was too short or a common one (like the placeholder). Sign in with the setup code from the log or `setup-code.txt` in the dataset, and choose a password there |
 

@@ -8,7 +8,7 @@
 #      A weak or placeholder password (like the one below) is refused and you get the setup code.
 services:
   botdock:
-    image: ghcr.io/thebyteguy/botdock:0.1.1
+    image: ghcr.io/thebyteguy/botdock:0.1.2
     pull_policy: missing
     restart: unless-stopped
     ports:

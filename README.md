@@ -16,9 +16,9 @@ Built for HexOS / TrueNAS SCALE as a custom app, and also runs anywhere Docker d
 With Docker:
 
 ```sh
-docker build -t botdock:0.1.1 .
+docker build -t botdock:0.1.2 .
 docker run -d --name botdock -p 30480:8080 -v botdock-data:/data \
-  -e BOTDOCK_PASSWORD='choose-a-password' botdock:0.1.1
+  -e BOTDOCK_PASSWORD='choose-a-password' botdock:0.1.2
 ```
 
 Then open `http://<host>:30480`.
@@ -30,7 +30,7 @@ pip install -r requirements.txt
 python -m botdock
 ```
 
-A prebuilt image is published as `ghcr.io/thebyteguy/botdock` (tags like `0.1.1`, `latest`; `edge` follows `main`), so you can skip the build and run that instead.
+A prebuilt image is published as `ghcr.io/thebyteguy/botdock` (tags like `0.1.2`, `latest`; `edge` follows `main`), so you can skip the build and run that instead.
 
 - **HexOS:** see [deploy/HEXOS.md](deploy/HEXOS.md). Custom Install with [deploy/botdock.json](deploy/botdock.json) is a copy-and-paste.
 - **TrueNAS SCALE:** see [deploy/TRUENAS.md](deploy/TRUENAS.md). Make a dataset, then paste [deploy/truenas-compose.yaml](deploy/truenas-compose.yaml) into Install via YAML.

@@ -5,7 +5,7 @@ from conftest import setup_body, PASSWORD
 
 def test_health_and_state_public(client):
     r = client.get("/api/health")
-    assert r.json() == {"status": "ok", "version": "0.1.1"}
+    assert r.json() == {"status": "ok", "version": "0.1.2"}
     assert client.get("/api/auth/state").json() == {"setup_required": True, "authenticated": False,
                                                     "setup_code_required": True}
 

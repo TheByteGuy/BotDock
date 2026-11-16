@@ -5,7 +5,7 @@ import { allBots, isLoaded, subscribe, loadBots } from "../store.js";
 import { statePill, stateTone, fmtCpu, fmtBytes, uptimeEl, spinnerBlock, toastError, plural, fmtDuration } from "../ui.js";
 import { botActions } from "../botactions.js";
 import { dropZone } from "../upload.js";
-import { setPendingSelection } from "./newbot.js";
+import { setPendingSelection, setPendingSource } from "./newbot.js";
 import { isGithub, sourceMark, shortSha } from "../github.js";
 
 export function mount(root, _params, { navigate }) {
@@ -73,7 +73,11 @@ export function mount(root, _params, { navigate }) {
         title: "Add your first bot",
         hint: "Drop a .py file, a bot folder or a .zip here. Requirements and .env files are picked up automatically.",
         onSelect: (p) => { setPendingSelection(p); navigate("#/new"); },
-      })));
+      }),
+      h("div", { class: "empty-alt" },
+        h("span", { class: "muted" }, "Code on GitHub?"),
+        h("button", { class: "btn", type: "button", onclick: () => { setPendingSource("github"); navigate("#/new"); } },
+          icon("github"), h("span", { class: "btn-label" }, "Add from GitHub")))));
   }
 
   function renderAll() {

@@ -10,6 +10,10 @@ let pending = null;
 /** The dashboard's empty-state drop zone hands its selection over to this screen. */
 export function setPendingSelection(p) { pending = p; }
 
+let pendingSource = null;
+/** Open this screen on a given source tab ("upload" or "github") the next time it mounts. */
+export function setPendingSource(s) { pendingSource = s; }
+
 const SOURCE_KEY = "botdock-newbot-source";
 function savedSource() { try { return localStorage.getItem(SOURCE_KEY) === "github" ? "github" : "upload"; } catch { return "upload"; } }
 
@@ -18,7 +22,8 @@ export function mount(root, _params, { navigate, setGuard }) {
   let xhr = null;
   let picker = null;
   let creating = false;
-  let source = pending ? "upload" : savedSource();
+  let source = pending ? "upload" : (pendingSource || savedSource());
+  pendingSource = null;
   const stage = h("div", { class: "newbot-stage" });
   const srcTab = (id, iconName, label, hint) => h("button", { class: "source-tab", type: "button", role: "tab", dataset: { src: id },
     onclick: () => switchSource(id) }, h("span", { class: "source-tab-icon" }, icon(iconName)),

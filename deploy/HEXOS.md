@@ -46,9 +46,9 @@ For a changed copy of BotDock that isn't on GitHub's registry:
 
 1. Copy the bundle to the NAS as in Option A, steps 1–3.
 2. TrueNAS UI → System → Shell:
-   `sudo docker build -t botdock:0.1.1 /mnt/<pool>/<share>/apps/botdock/app`
+   `sudo docker build -t botdock:0.1.2 /mnt/<pool>/<share>/apps/botdock/app`
 3. In `botdock.json`, set `app_values.image` to
-   `{ "repository": "botdock", "tag": "0.1.1", "pull_policy": "never" }`, then install it with
+   `{ "repository": "botdock", "tag": "0.1.2", "pull_policy": "never" }`, then install it with
    Custom Install as above.
 
 **Updating:** rebuild with the same command, then stop and start the app.
